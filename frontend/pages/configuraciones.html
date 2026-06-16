@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- Configuraciones de cuenta: muestra el correo del usuario y permite restablecer contraseña -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajustes - AulaHub</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+      <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+    <header class="header"></header>
+    <div class="toasts"></div>
+
+    <div class="content">
+        <div class="page-header">
+          <h2>Configuraciones</h2>
+          <p class="page-sub">Tu correo y la seguridad de tu cuenta.</p>
+        </div>
+
+        <div class="config-container">
+            <h4 class="config-section-title">Cuenta</h4>
+
+            <div class="card config-card">
+                <div class="config-item-main">
+                    <span class="material-symbols-outlined config-icon">mail</span>
+                    <div>
+                        <h3 class="config-title">Correo Electrónico</h3>
+                        <p id="user-email" class="config-copy">Cargando...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card config-card config-card-vertical">
+                <div class="config-item-main">
+                    <span class="material-symbols-outlined config-icon">lock_reset</span>
+                    <div>
+                        <h3 class="config-title">Cambiar contraseña</h3>
+                        <p class="config-copy">Escribe tu contraseña actual y la nueva.</p>
+                    </div>
+                </div>
+
+                <form id="form-password" class="config-form" autocomplete="off">
+                    <div class="config-field">
+                        <label for="pass-actual">Contraseña actual</label>
+                        <input type="password" id="pass-actual" placeholder="Tu contraseña actual">
+                    </div>
+                    <div class="config-field">
+                        <label for="pass-nueva">Nueva contraseña</label>
+                        <input type="password" id="pass-nueva" placeholder="Mínimo 8, mayúscula, número y símbolo">
+                    </div>
+                    <div class="config-field">
+                        <label for="pass-confirmar">Confirmar nueva contraseña</label>
+                        <input type="password" id="pass-confirmar" placeholder="Repite la nueva contraseña">
+                    </div>
+                    <span class="field-error" id="err-password"></span>
+                    <button type="button" id="btnCambiarPassword" class="btn-action">Guardar nueva contraseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/configuraciones.js"></script>
+</body>
+</html>

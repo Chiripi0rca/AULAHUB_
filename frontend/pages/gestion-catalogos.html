@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!-- Gestión de catálogos: aulas, materias, grupos y tipos de reserva en una sola página con tabs -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogos - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <div class="page-header">
+      <h2>Catálogos</h2>
+      <p class="page-sub">Gestiona las aulas, materias, grupos y tipos de reserva de tu facultad.</p>
+    </div>
+
+    <!-- ── Tabs ── -->
+    <div class="tabs-bar">
+      <button class="tab-btn tab-activo" data-tab="aulas">
+        <span class="material-symbols-outlined">meeting_room</span> Aulas
+      </button>
+      <button class="tab-btn" data-tab="materias">
+        <span class="material-symbols-outlined">menu_book</span> Materias
+      </button>
+      <button class="tab-btn" data-tab="grupos">
+        <span class="material-symbols-outlined">groups</span> Grupos
+      </button>
+      <button class="tab-btn" data-tab="materias-grupo">
+        <span class="material-symbols-outlined">library_books</span> Materias por grupo
+      </button>
+      <button class="tab-btn" data-tab="tipos">
+        <span class="material-symbols-outlined">event</span> Tipos de reserva
+      </button>
+    </div>
+
+    <!-- ── Panel: Aulas ── -->
+    <div id="tab-aulas" class="tab-panel">
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+        <h3 class="dashboard-section-title">
+          <span class="material-symbols-outlined">add_circle</span>
+          <span id="aulas-form-titulo">Nueva aula</span>
+        </h3>
+        <form id="aulas-form-catalogo" autocomplete="off" novalidate>
+          <input type="hidden" id="aulas-item-id">
+          <div class="form-field">
+            <label for="aulas-campo-facultad">Facultad <span class="req">*</span></label>
+            <select id="aulas-campo-facultad"></select>
+            <span class="field-error" id="err-aulas-campo-facultad"></span>
+          </div>
+          <div class="form-row" id="aulas-form-campos"></div>
+          <div class="form-field form-field-full" style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button type="button" id="aulas-btn-guardar" class="btn-action">
+              <span class="material-symbols-outlined">save</span> Guardar
+            </button>
+            <button type="button" id="aulas-btn-cancelar" class="btn-action" style="background:#f3f4f6; color:#374151; display:none;">Cancelar</button>
+          </div>
+          <div id="aulas-item-exito" class="form-exito" style="display:none;">
+            <span class="material-symbols-outlined" style="vertical-align:middle">check_circle</span> Aula guardada.
+          </div>
+          <div id="aulas-item-error" class="form-error-global" style="display:none;"></div>
+        </form>
+      </div>
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+        <h3 class="dashboard-section-title"><span class="material-symbols-outlined">list</span> Aulas registradas</h3>
+        <div id="aulas-lista-items"><p class="status-message">Cargando...</p></div>
+      </div>
+    </div>
+
+    <!-- ── Panel: Materias ── -->
+    <div id="tab-materias" class="tab-panel" style="display:none;">
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+        <h3 class="dashboard-section-title">
+          <span class="material-symbols-outlined">add_circle</span>
+          <span id="materias-form-titulo">Nueva materia</span>
+        </h3>
+        <form id="materias-form-catalogo" autocomplete="off" novalidate>
+          <input type="hidden" id="materias-item-id">
+          <div class="form-field">
+            <label for="materias-campo-facultad">Facultad <span class="req">*</span></label>
+            <select id="materias-campo-facultad"></select>
+            <span class="field-error" id="err-materias-campo-facultad"></span>
+          </div>
+          <div class="form-row" id="materias-form-campos"></div>
+          <div class="form-field form-field-full" style="margin-top:20px; display:flex; gap:12px;">
+            <button type="button" id="materias-btn-guardar" class="btn-action">
+              <span class="material-symbols-outlined">save</span> Guardar
+            </button>
+            <button type="button" id="materias-btn-cancelar" class="btn-action" style="background:#f3f4f6; color:#374151; display:none;">Cancelar</button>
+          </div>
+          <div id="materias-item-exito" class="form-exito" style="display:none;"><span class="material-symbols-outlined" style="vertical-align:middle">check_circle</span> Materia guardada.</div>
+          <div id="materias-item-error" class="form-error-global" style="display:none;"></div>
+        </form>
+      </div>
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+        <h3 class="dashboard-section-title"><span class="material-symbols-outlined">list</span> Materias registradas</h3>
+        <div id="materias-lista-items"><p class="status-message">Cargando...</p></div>
+      </div>
+    </div>
+
+    <!-- ── Panel: Grupos ── -->
+    <div id="tab-grupos" class="tab-panel" style="display:none;">
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+        <h3 class="dashboard-section-title">
+          <span class="material-symbols-outlined">add_circle</span>
+          <span id="grupos-form-titulo">Nuevo grupo</span>
+        </h3>
+        <form id="grupos-form-catalogo" autocomplete="off" novalidate>
+          <input type="hidden" id="grupos-item-id">
+          <div class="form-field">
+            <label for="grupos-campo-facultad">Facultad <span class="req">*</span></label>
+            <select id="grupos-campo-facultad"></select>
+            <span class="field-error" id="err-grupos-campo-facultad"></span>
+          </div>
+          <div class="form-row" id="grupos-form-campos"></div>
+          <div class="form-field form-field-full" style="margin-top:20px; display:flex; gap:12px;">
+            <button type="button" id="grupos-btn-guardar" class="btn-action">
+              <span class="material-symbols-outlined">save</span> Guardar
+            </button>
+            <button type="button" id="grupos-btn-cancelar" class="btn-action" style="background:#f3f4f6; color:#374151; display:none;">Cancelar</button>
+          </div>
+          <div id="grupos-item-exito" class="form-exito" style="display:none;"><span class="material-symbols-outlined" style="vertical-align:middle">check_circle</span> Grupo guardado.</div>
+          <div id="grupos-item-error" class="form-error-global" style="display:none;"></div>
+        </form>
+      </div>
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+        <h3 class="dashboard-section-title"><span class="material-symbols-outlined">list</span> Grupos registrados</h3>
+        <div id="grupos-lista-items"><p class="status-message">Cargando...</p></div>
+      </div>
+    </div>
+
+    <!-- ── Panel: Materias por grupo (curricula) ── -->
+    <div id="tab-materias-grupo" class="tab-panel" style="display:none;">
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+        <h3 class="dashboard-section-title">
+          <span class="material-symbols-outlined">library_books</span> Materias por grupo
+        </h3>
+        <p class="page-sub" style="margin:0 0 16px;">Elige un grupo y administra las materias que se imparten en el (su curricula).</p>
+        <div class="form-field" style="margin:0;">
+          <label for="mg-grupo">Grupo <span class="req">*</span></label>
+          <select id="mg-grupo"><option value="">Cargando grupos...</option></select>
+        </div>
+      </div>
+
+      <div id="mg-detalle" class="dashboard-section" style="max-width:760px; margin:0 auto; display:none;">
+        <h3 class="dashboard-section-title"><span class="material-symbols-outlined">add_circle</span> Agregar materia</h3>
+        <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap; margin-bottom:24px;">
+          <div class="form-field" style="flex:1 1 280px; margin:0;">
+            <label for="mg-disponibles">Materias disponibles</label>
+            <select id="mg-disponibles"></select>
+          </div>
+          <button type="button" id="mg-agregar" class="btn-action">
+            <span class="material-symbols-outlined">add</span> Agregar
+          </button>
+        </div>
+        <h3 class="dashboard-section-title">
+          <span class="material-symbols-outlined">list</span> Materias del grupo (<span id="mg-count">0</span>)
+        </h3>
+        <div id="mg-asignadas"><p class="status-message">Selecciona un grupo.</p></div>
+      </div>
+    </div>
+
+    <!-- ── Panel: Tipos de reserva ── -->
+    <div id="tab-tipos" class="tab-panel" style="display:none;">
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+        <h3 class="dashboard-section-title">
+          <span class="material-symbols-outlined">add_circle</span>
+          <span id="tipos-form-titulo">Nuevo tipo de reserva</span>
+        </h3>
+        <form id="tipos-form-catalogo" autocomplete="off" novalidate>
+          <input type="hidden" id="tipos-item-id">
+          <div class="form-field">
+            <label for="tipos-campo-facultad">Facultad <span class="req">*</span></label>
+            <select id="tipos-campo-facultad"></select>
+            <span class="field-error" id="err-tipos-campo-facultad"></span>
+          </div>
+          <div class="form-row" id="tipos-form-campos"></div>
+          <div class="form-field form-field-full" style="margin-top:20px; display:flex; gap:12px;">
+            <button type="button" id="tipos-btn-guardar" class="btn-action">
+              <span class="material-symbols-outlined">save</span> Guardar
+            </button>
+            <button type="button" id="tipos-btn-cancelar" class="btn-action" style="background:#f3f4f6; color:#374151; display:none;">Cancelar</button>
+          </div>
+          <div id="tipos-item-exito" class="form-exito" style="display:none;"><span class="material-symbols-outlined" style="vertical-align:middle">check_circle</span> Tipo guardado.</div>
+          <div id="tipos-item-error" class="form-error-global" style="display:none;"></div>
+        </form>
+      </div>
+      <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+        <h3 class="dashboard-section-title"><span class="material-symbols-outlined">list</span> Tipos de reserva registrados</h3>
+        <div id="tipos-lista-items"><p class="status-message">Cargando...</p></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer></footer>
+  <script src="../config.js"></script>
+  <script type="module" src="../src/main.js"></script>
+  <script type="module" src="../src/pages/gestion-catalogos.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!-- Historial de reservas: lista y filtra las reservas del usuario con opción de exportar a PDF -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Reservas - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+    <header class="header"></header>
+    <div class="toasts"></div>
+
+    <div class="content">
+        <h2>Historial de Reservas</h2>
+
+        <!-- Toolbar de filtros y exportación -->
+        <div class="export-toolbar">
+            <div class="filter-row">
+
+                <!-- Filtro por facultad (solo admin central) -->
+                <div class="filter-group" id="grupo-facultad" style="display:none">
+                    <label>Facultad</label>
+                    <select id="filtro-facultad"></select>
+                </div>
+
+                <!-- Filtro por aula (super admin y admin central) -->
+                <div class="filter-group" id="grupo-aula" style="display:none">
+                    <label>Aula</label>
+                    <select id="filtro-aula"></select>
+                </div>
+
+                <!-- Filtro por maestro (solo admin) -->
+                <div class="filter-group filter-group-maestro" id="grupo-maestro">
+                    <label>Maestros</label>
+                    <select id="filtro-maestro" multiple size="5"></select>
+                    <div class="maestro-btns">
+                        <button type="button" id="btn-todos-maestros" class="btn-sel-maestro">Todos</button>
+                        <button type="button" id="btn-ninguno-maestros" class="btn-sel-maestro">Ninguno</button>
+                    </div>
+                </div>
+
+                <!-- Filtro por período -->
+                <div class="filter-group">
+                    <label>Período</label>
+                    <select id="filtro-periodo">
+                        <option value="todo">Todas las fechas</option>
+                        <option value="dia">Día</option>
+                        <option value="semana">Semana</option>
+                        <option value="mes">Mes</option>
+                        <option value="semestre">Semestre</option>
+                        <option value="rango">Rango personalizado</option>
+                    </select>
+                </div>
+
+                <!-- Inputs condicionales según período -->
+                <div class="filter-group date-input" id="input-dia">
+                    <label>Fecha</label>
+                    <input type="date" id="fecha-dia">
+                </div>
+
+                <div class="filter-group date-input" id="input-semana">
+                    <label>Semana</label>
+                    <input type="week" id="fecha-semana">
+                </div>
+
+                <div class="filter-group date-input" id="input-mes">
+                    <label>Mes</label>
+                    <input type="month" id="fecha-mes">
+                </div>
+
+                <div class="filter-group date-input" id="input-semestre">
+                    <label>Semestre</label>
+                    <select id="semestre-val"></select>
+                </div>
+
+                <div class="filter-group-rango date-input" id="input-rango">
+                    <div class="filter-group">
+                        <label>Del</label>
+                        <input type="date" id="rango-inicio">
+                    </div>
+                    <div class="filter-group">
+                        <label>Al</label>
+                        <input type="date" id="rango-fin">
+                    </div>
+                </div>
+
+                <div class="toolbar-actions">
+                    <button id="btn-aplicar" class="btn-filtrar">
+                        <span class="material-symbols-outlined">filter_list</span>
+                        Filtrar
+                    </button>
+                    <button id="btn-pdf" class="btn-exportar">
+                        <span class="material-symbols-outlined">picture_as_pdf</span>
+                        Exportar PDF
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultados-info" class="resultados-info"></div>
+        </div>
+
+        <div id="loading" class="status-message">
+            Consultando reservas...
+        </div>
+
+        <div id="empty-message" class="status-message empty-message">
+            <span class="material-symbols-outlined empty-icon">event_busy</span>
+            No hay reservas para los filtros seleccionados.
+        </div>
+
+        <div id="reservas-container" class="grid-container"></div>
+    </div>
+
+    <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/mis-reservas.js"></script>
+</body>
+</html>

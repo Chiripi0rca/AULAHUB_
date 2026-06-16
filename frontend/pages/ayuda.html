@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- Centro de ayuda: guía rápida, estados de reserva, reglas de uso y contacto de soporte -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - AulaHub</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+    <header class="header"></header>
+    <div class="content help-section">
+        <div class="help-header">
+            <h2>Centro de Ayuda</h2>
+        </div>
+        <div class="help-grid">
+            
+            <div class="card help-card">
+                <div class="card-header">
+                    <span class="material-symbols-outlined icon-blue">rocket_launch</span>
+                    <h3>Guía Rápida</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Seleccione un aula.</li>
+                        <li>Elige el salón, la fecha y el horario.</li>
+                        <li>Seleccione su Grupo y Materia.</li>
+                        <li>Confirma la reserva.</li>
+                        <li>Consulta el estado en "Mis reservas".</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-orange">pending_actions</span><h3>Estado de la reserva</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li><strong>Pendiente:</strong> Esperando aprobación.</li>
+                        <li><strong>Aceptada:</strong> Aprobada por el admin.</li>
+                        <li><strong>Rechazada:</strong> Horario no disponible.</li>
+                        <li><strong>Rechazada por el sistema:</strong> No se atendió a tiempo tu solicitud</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-purple">edit_calendar</span><h3>Modificar Reserva</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li>Solo puedes cancelar tu reserva si está <strong>Pendiente</strong> y incluso cuándo esta <strong>aceptada</strong>.</li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-red">gavel</span><h3>Reglas</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li>Respeta los horarios de la institución.</li>
+                        <li>Solo el administrador del aula puede aprobar.</li>
+                        <li>No puedes modificar reservas ajenas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-green">person</span><h3>Perfil</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li><strong>Subir Foto:</strong> Clic en tu icono > Subir Foto.</li>
+                        <li><strong>Borrar Foto:</strong> Clic en tu icono > Borrar Foto.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-yellow">report_problem</span><h3>Problemas</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li><strong>Denegado:</strong> Cierra sesión y vuelve a entrar.</li>
+                        <li><strong>Fallo al guardar:</strong> Revisa que no falten datos.</li>
+                        <li><strong>No carga:</strong> Verifica tu internet (F5).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-yellow">privacy_tip</span><h3>Privacidad</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li>Tus datos solo se usan para gestionar las reservas académicas dentro de la facultad.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card help-card">
+                <div class="card-header"><span class="material-symbols-outlined icon-yellow">contact_page</span><h3>Contacto</h3></div>
+                <div class="card-body">
+                    <ul>
+                        <li>Para soporte técnico, envía un correo a la administración (aulahub@info.uas.edu.mx) con asunto "AulaHub" y captura del error.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="toasts"></div>
+    <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+</body>
+</html>

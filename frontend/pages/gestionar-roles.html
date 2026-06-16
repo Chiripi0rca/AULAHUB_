@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- Gestión de roles por facultad: ADMIN_CENTRAL ve todas, SUPER_ADMIN solo la suya -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionar Roles - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <h2>Gestionar Roles</h2>
+    <div id="facultades-contenedor">
+      <p class="status-message">Cargando facultades...</p>
+    </div>
+  </div>
+
+  <footer></footer>
+  <script src="../config.js"></script>
+  <script type="module" src="../src/main.js"></script>
+  <script type="module" src="../src/pages/gestionar-roles.js"></script>
+</body>
+</html>

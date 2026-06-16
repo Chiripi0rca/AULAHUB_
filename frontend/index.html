@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!-- Página de inicio de sesión: formulario de login con presentación de misión y visión de AulaHub -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserva tu espacio - FIC</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/login.css">
+</head>
+<body class="login-page">
+  <div class="page-wrapper">
+
+    <!-- Panel izquierdo: bienvenida, misión y visión -->
+    <div class="welcome-panel">
+      <p class="welcome-title">Bienvenido a AulaHub</p>
+      <p class="welcome-subtitle">
+        Sistema de reserva de espacios académicos de la<br>
+        Facultad de Informática Culiacán
+      </p>
+
+      <hr class="divider">
+
+      <p class="section-title">Misión</p>
+      <p class="section-body">
+        Facilitar el acceso y la gestión eficiente de laboratorios, aulas y
+        auditorios, brindando a la comunidad universitaria una herramienta
+        confiable para organizar sus actividades académicas.
+      </p>
+
+      <p class="section-title">Visión</p>
+      <p class="section-body">
+        Ser el sistema de referencia para la administración de espacios en la FIC,
+        promoviendo el aprovechamiento óptimo de los recursos institucionales y
+        una cultura de organización y respeto.
+      </p>
+    </div>
+
+    <!-- Panel derecho: formulario de acceso -->
+    <div class="login-container">
+      <img src="assets/images/logo.png" alt="Logo Facultad de Informática Culiacán" class="logo">
+      <h2>Reserva tu espacio</h2>
+      <form id="loginForm">
+        <input type="email" id="login-email" placeholder="Correo electrónico" required>
+        <input type="password" id="login-password" placeholder="Contraseña" required>
+        <button type="button" id="login">Entrar</button>
+      </form>
+      <a href="pages/recuperar-password.html" class="forgot-link">¿Olvidaste tu contraseña?</a>
+    </div>
+
+  </div>
+    <script src="config.js"></script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

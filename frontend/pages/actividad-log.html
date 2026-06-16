@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- Log de actividad — visible para ADMIN, SUPER_ADMIN y ADMIN_CENTRAL según su scope -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <h2 id="log-titulo">Actividad reciente</h2>
+
+    <div class="dashboard-section">
+
+      <!-- Barra de filtros -->
+      <div id="log-filtros" style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin-bottom:18px;">
+        <div style="display:flex; flex-direction:column; gap:4px; flex:1 1 220px; min-width:200px;">
+          <label for="f-q" style="font-size:12px; color:#6b7280; font-weight:600;">Buscar</label>
+          <input id="f-q" type="text" placeholder="Usuario, acción o detalle..." autocomplete="off"
+                 style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px; min-width:150px;">
+          <label for="f-entidad" style="font-size:12px; color:#6b7280; font-weight:600;">Entidad</label>
+          <select id="f-entidad" style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px; min-width:170px;">
+          <label for="f-accion" style="font-size:12px; color:#6b7280; font-weight:600;">Acción</label>
+          <select id="f-accion" style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label for="f-desde" style="font-size:12px; color:#6b7280; font-weight:600;">Desde</label>
+          <input id="f-desde" type="date"
+                 style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        </div>
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <label for="f-hasta" style="font-size:12px; color:#6b7280; font-weight:600;">Hasta</label>
+          <input id="f-hasta" type="date"
+                 style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button id="btn-aplicar" class="btn-action" style="padding:9px 16px;">
+            <span class="material-symbols-outlined" style="font-size:18px; vertical-align:middle">filter_alt</span>
+            Aplicar
+          </button>
+          <button id="btn-limpiar" class="btn-action" style="padding:9px 16px; background:#6b7280;">
+            Limpiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Estado de carga -->
+      <div id="log-loading" class="status-message">Cargando actividad...</div>
+
+      <!-- Estado vacío -->
+      <div id="log-vacio" class="status-message empty-message" style="display:none">
+        <span class="material-symbols-outlined empty-icon">event_note</span>
+        Sin actividad registrada aún.
+      </div>
+
+      <!-- Tabla -->
+      <div id="log-container" style="display:none; overflow-x:auto">
+        <table class="log-tabla">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Acción</th>
+              <th>Detalle</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="log-body"></tbody>
+        </table>
+      </div>
+
+      <!-- Paginación -->
+      <div id="paginacion" style="display:none; margin-top:20px; display:flex; gap:12px; align-items:center; justify-content:center;">
+        <button id="btn-anterior" class="btn-action" style="padding:8px 16px;" disabled>
+          <span class="material-symbols-outlined" style="font-size:18px; vertical-align:middle">chevron_left</span>
+          Anterior
+        </button>
+        <span id="info-pagina" style="font-size:14px; color:#6b7280;"></span>
+        <button id="btn-siguiente" class="btn-action" style="padding:8px 16px;" disabled>
+          Siguiente
+          <span class="material-symbols-outlined" style="font-size:18px; vertical-align:middle">chevron_right</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/actividad-log.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- Gestión de usuarios: activar, desactivar y editar nombre — SUPER_ADMIN / ADMIN_CENTRAL -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Usuarios - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <h2>Gestión de Usuarios</h2>
+
+    <!-- ── Buscador ── -->
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <input type="search" id="buscador-usuarios" placeholder="Buscar por nombre o email..."
+          style="flex:1; min-width:200px; padding:10px 14px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        <span style="font-size:13px; color:#9ca3af;" id="usuarios-contador"></span>
+      </div>
+    </div>
+
+    <!-- ── Formulario edición de nombre (se muestra al pulsar Editar) ── -->
+    <div id="seccion-editar" class="dashboard-section" style="max-width:760px; margin:0 auto 24px; display:none;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">edit</span>
+        Editar usuario
+      </h3>
+      <input type="hidden" id="edit-usuario-id">
+      <div class="form-field" style="max-width:400px;">
+        <label for="edit-nombre">Nombre completo <span class="req">*</span></label>
+        <input type="text" id="edit-nombre" maxlength="150" placeholder="Nombre del usuario">
+        <span class="field-error" id="err-edit-nombre"></span>
+      </div>
+      <div style="display:flex; gap:12px; margin-top:16px;">
+        <button id="btn-guardar-nombre" class="btn-action">
+          <span class="material-symbols-outlined">save</span>
+          Guardar nombre
+        </button>
+        <button id="btn-cancelar-edicion"
+          style="padding:8px 18px; border:1px solid #d1d5db; border-radius:8px; background:#f9fafb; cursor:pointer; font-size:14px;">
+          Cancelar
+        </button>
+      </div>
+      <div id="edit-exito" class="form-exito" style="display:none;">
+        <span class="material-symbols-outlined" style="vertical-align:middle; margin-right:6px">check_circle</span>
+        Nombre actualizado correctamente.
+      </div>
+      <div id="edit-error" class="form-error-global" style="display:none;"></div>
+    </div>
+
+    <!-- ── Lista de usuarios ── -->
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">group</span>
+        Usuarios registrados
+      </h3>
+      <div id="lista-usuarios">
+        <p class="status-message">Cargando usuarios...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer></footer>
+  <script src="../config.js"></script>
+  <script type="module" src="../src/main.js"></script>
+  <script type="module" src="../src/pages/gestion-usuarios.js"></script>
+</body>
+</html>

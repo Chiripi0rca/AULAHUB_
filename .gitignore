@@ -1,0 +1,10 @@
+# Secretos y datos locales — NUNCA se commitean
+.env
+firebase-key.json
+*firebase-adminsdk*.json
+google-services.json
+
+# Backups y logs
+*.sql
+*.sql.gz
+*.log

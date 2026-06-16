@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- Gestión de facultades — exclusivo para ADMIN_CENTRAL: crear, editar, activar y desactivar facultades -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facultades - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <h2>Gestión de Facultades</h2>
+
+    <!-- ── Formulario crear / editar ── -->
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">add_circle</span>
+        <span id="form-titulo">Nueva facultad</span>
+      </h3>
+
+      <form id="form-facultad" autocomplete="off" novalidate>
+        <input type="hidden" id="fac-id">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="fac-nombre">Nombre <span class="req">*</span></label>
+            <input type="text" id="fac-nombre" placeholder="Ej. Facultad de Informática Culiacán">
+            <span class="field-error" id="err-fac-nombre"></span>
+          </div>
+          <div class="form-field">
+            <label for="fac-clave">Clave <span class="req">*</span></label>
+            <input type="text" id="fac-clave" placeholder="Ej. FIC" maxlength="10"
+                   style="text-transform:uppercase">
+            <span class="password-hint">Solo letras mayúsculas, sin espacios (2–10 caracteres)</span>
+            <span class="field-error" id="err-fac-clave"></span>
+          </div>
+        </div>
+
+        <div class="form-field form-field-full" style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+          <button type="button" id="btn-guardar" class="btn-action">
+            <span class="material-symbols-outlined">save</span>
+            Guardar
+          </button>
+          <button type="button" id="btn-cancelar" class="btn-action"
+                  style="background:#f3f4f6; color:#374151; display:none;">
+            Cancelar edición
+          </button>
+        </div>
+
+        <div id="fac-exito" class="form-exito" style="display:none;">
+          <span class="material-symbols-outlined" style="vertical-align:middle; margin-right:6px">check_circle</span>
+          Facultad guardada correctamente.
+        </div>
+        <div id="fac-error" class="form-error-global" style="display:none;"></div>
+      </form>
+    </div>
+
+    <!-- ── Lista de facultades ── -->
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">list</span>
+        Facultades registradas
+      </h3>
+      <div id="lista-facultades">
+        <p class="status-message">Cargando...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/facultades.js"></script>
+</body>
+</html>

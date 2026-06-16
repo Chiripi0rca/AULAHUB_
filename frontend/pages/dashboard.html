@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- Dashboard administrativo: estadísticas, log de actividad y gestión según rol (ADMIN / SUPER_ADMIN / ADMIN_CENTRAL) -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <h2 id="dashboard-titulo">Dashboard</h2>
+
+    <!-- ── Acciones rápidas ── -->
+    <div id="acciones-rapidas" style="display:none; gap:10px; flex-wrap:wrap; margin-bottom:28px;"></div>
+
+    <!-- ── Tarjetas de estadísticas ── -->
+    <div id="stats-loading" class="status-message">Cargando estadísticas...</div>
+    <div id="stats-grid" class="stats-grid" style="display:none"></div>
+
+    <!-- ── Crear usuario (SUPER_ADMIN / ADMIN_CENTRAL) ── -->
+    <div id="seccion-crear-usuario" class="dashboard-section" style="display:none">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">person_add</span>
+        Gestión de usuarios
+      </h3>
+      <p style="color:#6b7280;font-size:14px;margin:0 0 16px">
+        Crea cuentas para profesores, admins y super admins de tu facultad.
+      </p>
+      <a id="btn-ir-registrar" href="registrar-usuario.html" class="btn-action" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none">
+        <span class="material-symbols-outlined">person_add</span>
+        Registrar nuevo usuario
+      </a>
+    </div>
+
+    <!-- ── Exportar reportes (SUPER_ADMIN / ADMIN_CENTRAL) ── -->
+    <div id="seccion-exportar" class="dashboard-section" style="display:none">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">download</span>
+        Exportar reportes
+      </h3>
+
+      <!-- Filtro de rango de fechas (opcional) -->
+      <div style="display:flex; gap:16px; align-items:flex-end; flex-wrap:wrap; margin-bottom:16px;">
+        <div>
+          <label for="reporte-desde" style="display:block; font-size:12px; color:#6b7280; margin-bottom:4px;">Desde (opcional)</label>
+          <input type="date" id="reporte-desde" style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        </div>
+        <div>
+          <label for="reporte-hasta" style="display:block; font-size:12px; color:#6b7280; margin-bottom:4px;">Hasta (opcional)</label>
+          <input type="date" id="reporte-hasta" style="padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        </div>
+        <button id="btn-limpiar-fechas" style="padding:8px 14px; border:1px solid #d1d5db; border-radius:8px; background:#f9fafb; font-size:13px; cursor:pointer; align-self:flex-end;">
+          Limpiar fechas
+        </button>
+      </div>
+      <p style="font-size:12px; color:#9ca3af; margin:0 0 16px;">Sin fechas → exporta todo el historial.</p>
+
+      <div class="export-btns">
+        <button id="btn-excel-global" class="btn-exportar" style="display:none">
+          <span class="material-symbols-outlined">table_chart</span>
+          Excel global
+        </button>
+        <button id="btn-pdf-aula" class="btn-exportar" style="display:none">
+          <span class="material-symbols-outlined">picture_as_pdf</span>
+          PDF por aula
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Log de actividad ── -->
+    <div class="dashboard-section">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">history</span>
+        Actividad reciente
+      </h3>
+      <div id="log-loading" class="status-message">Cargando actividad...</div>
+      <div id="log-vacio" class="status-message empty-message" style="display:none">
+        <span class="material-symbols-outlined empty-icon">event_note</span>
+        Sin actividad registrada.
+      </div>
+      <div id="log-container" style="display:none; overflow-x:auto">
+        <table class="log-tabla">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Acción</th>
+              <th>Detalle</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="log-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/dashboard.js"></script>
+</body>
+</html>

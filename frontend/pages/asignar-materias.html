@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- Asignar (grupo + materia) a maestros — SUPER_ADMIN / ADMIN_CENTRAL.
+     La materia se filtra a las que se imparten en el grupo elegido. -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asignar materias - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <div class="page-header">
+      <h2>Asignar materias a maestros</h2>
+      <p class="page-sub">Define qué materias imparte cada maestro en cada grupo.</p>
+    </div>
+
+    <!-- Pasos guiados -->
+    <div class="stepper" style="max-width:760px;">
+      <div class="step activo" data-step="1"><span class="step-num">1</span> Elige el maestro</div>
+      <span class="material-symbols-outlined step-flecha">chevron_right</span>
+      <div class="step" data-step="2"><span class="step-num">2</span> Elige grupo y marca materias</div>
+      <span class="material-symbols-outlined step-flecha">chevron_right</span>
+      <div class="step" data-step="3"><span class="step-num">3</span> Guarda</div>
+    </div>
+
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">person</span>
+        Maestro
+      </h3>
+      <div class="form-field">
+        <label for="select-maestro">Selecciona el maestro</label>
+        <select id="select-maestro">
+          <option value="">Cargando maestros...</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Panel de asignaciones (se muestra al elegir maestro) -->
+    <div class="dashboard-section" id="panel-asignaciones" style="max-width:760px; margin:0 auto; display:none;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">school</span>
+        Grupos y materias
+      </h3>
+      <p style="color:#6b7280; font-size:13px; margin-top:-6px;">
+        Elige un grupo y marca las materias que imparte el maestro en ese grupo.
+        Los cambios se acumulan; al final pulsa <strong>Guardar</strong>.
+      </p>
+
+      <!-- Selector de grupo -->
+      <div class="form-field" style="max-width:320px;">
+        <label for="select-grupo">Grupo</label>
+        <select id="select-grupo">
+          <option value="">Selecciona un grupo</option>
+        </select>
+      </div>
+
+      <!-- Checkboxes de materias del grupo seleccionado -->
+      <div id="materias-checklist" style="margin-top:14px;"></div>
+
+      <!-- Resumen de TODAS las asignaciones del maestro (todos los grupos) -->
+      <div style="margin-top:22px; border-top:1px solid #f3f4f6; padding-top:16px;">
+        <h4 style="margin:0 0 10px; font-size:14px; color:#111827;">
+          Asignaciones actuales <span id="contador" style="color:#6b7280; font-weight:400;">(0)</span>
+        </h4>
+        <div id="resumen-asignaciones"></div>
+      </div>
+
+      <div style="margin-top:18px;">
+        <button type="button" id="btn-guardar" class="btn-action">
+          <span class="material-symbols-outlined">save</span>
+          Guardar asignación
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer></footer>
+  <script src="../config.js"></script>
+  <script type="module" src="../src/main.js"></script>
+  <script type="module" src="../src/pages/asignar-materias.js"></script>
+</body>
+</html>

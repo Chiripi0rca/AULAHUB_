@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- Personas: hub de gestión de usuarios, roles y registro — SUPER_ADMIN / ADMIN_CENTRAL -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personas - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <div class="page-header">
+      <h2>Personas</h2>
+      <p class="page-sub">Registra usuarios, asigna roles y gestiona las cuentas del sistema.</p>
+    </div>
+
+    <!-- ── Accesos rápidos ── -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:36px; max-width:760px;">
+
+      <a href="registrar-usuario.html" class="persona-card">
+        <span class="material-symbols-outlined persona-card-icono">person_add</span>
+        <div>
+          <strong>Registrar usuario</strong>
+          <p>Crea una cuenta nueva con nombre, email y rol.</p>
+        </div>
+      </a>
+
+      <a href="asignar-rol.html" class="persona-card">
+        <span class="material-symbols-outlined persona-card-icono">badge</span>
+        <div>
+          <strong>Asignar rol</strong>
+          <p>Da un rol y facultad a un usuario existente.</p>
+        </div>
+      </a>
+
+      <a href="gestionar-roles.html" class="persona-card">
+        <span class="material-symbols-outlined persona-card-icono">manage_accounts</span>
+        <div>
+          <strong>Gestionar roles</strong>
+          <p>Ve y revoca roles asignados por facultad.</p>
+        </div>
+      </a>
+
+      <a href="asignar-materias.html" class="persona-card">
+        <span class="material-symbols-outlined persona-card-icono">assignment</span>
+        <div>
+          <strong>Asignar materias</strong>
+          <p>Asigna grupos y materias a maestros.</p>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- ── Gestionar usuarios (lista embebida) ── -->
+    <div class="dashboard-section" style="max-width:760px;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">group</span>
+        Usuarios del sistema
+      </h3>
+
+      <!-- Buscador -->
+      <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:16px;">
+        <input type="search" id="buscador-usuarios" placeholder="Buscar por nombre o email..."
+          style="flex:1; min-width:200px; padding:10px 14px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+        <span style="font-size:13px; color:#9ca3af;" id="usuarios-contador"></span>
+      </div>
+
+      <!-- Formulario edición de nombre -->
+      <div id="seccion-editar" style="display:none; background:#f9fafb; border:1px solid #e5e7eb; border-radius:10px; padding:16px; margin-bottom:16px;">
+        <h4 style="margin:0 0 12px; font-size:14px; color:#111827;">Editar nombre</h4>
+        <input type="hidden" id="edit-usuario-id">
+        <div style="display:flex; gap:10px; align-items:flex-end; flex-wrap:wrap;">
+          <div style="flex:1; min-width:180px;">
+            <input type="text" id="edit-nombre" maxlength="150" placeholder="Nombre completo"
+              style="width:100%; padding:9px 12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px;">
+            <span class="field-error" id="err-edit-nombre"></span>
+          </div>
+          <button id="btn-guardar-nombre" class="btn-action" style="padding:9px 18px;">
+            <span class="material-symbols-outlined" style="font-size:18px;">save</span> Guardar
+          </button>
+          <button id="btn-cancelar-edicion" style="padding:9px 14px; border:1px solid #d1d5db; border-radius:8px; background:#fff; cursor:pointer; font-size:14px;">Cancelar</button>
+        </div>
+        <div id="edit-exito" class="form-exito" style="display:none; margin-top:10px;">
+          <span class="material-symbols-outlined" style="vertical-align:middle;margin-right:4px">check_circle</span>Nombre actualizado.
+        </div>
+        <div id="edit-error" class="form-error-global" style="display:none; margin-top:10px;"></div>
+      </div>
+
+      <!-- Lista -->
+      <div id="lista-usuarios"><p class="status-message">Cargando usuarios...</p></div>
+    </div>
+  </div>
+
+  <footer></footer>
+  <script src="../config.js"></script>
+  <script type="module" src="../src/main.js"></script>
+  <script type="module" src="../src/pages/personas.js"></script>
+</body>
+</html>

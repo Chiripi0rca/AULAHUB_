@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- Perfil de usuario: datos personales, foto y roles. Accesible para todos los roles. -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <div class="page-header">
+      <h2>Mi perfil</h2>
+      <p class="page-sub">Tus datos, foto y roles asignados.</p>
+    </div>
+
+    <div class="perfil-container">
+
+      <!-- Columna izquierda: foto -->
+      <div class="perfil-foto-col">
+        <img id="perfil-foto" src="../assets/images/usuario.png" alt="Foto de perfil" class="perfil-avatar">
+        <input type="file" id="foto-input" accept="image/*" style="display:none">
+        <button id="btn-subir-foto" class="btn-action" style="margin-top:14px">
+          <span class="material-symbols-outlined">photo_camera</span>
+          Cambiar foto
+        </button>
+      </div>
+
+      <!-- Columna derecha: datos -->
+      <div class="perfil-info-col">
+        <div class="perfil-campo">
+          <span class="perfil-campo-label">Nombre</span>
+          <span class="perfil-campo-valor" id="perfil-nombre">Cargando...</span>
+        </div>
+        <div class="perfil-campo">
+          <span class="perfil-campo-label">Correo</span>
+          <span class="perfil-campo-valor" id="perfil-email">—</span>
+        </div>
+        <div class="perfil-campo">
+          <span class="perfil-campo-label">Miembro desde</span>
+          <span class="perfil-campo-valor" id="perfil-desde">—</span>
+        </div>
+        <div class="perfil-campo">
+          <span class="perfil-campo-label">Estado</span>
+          <span class="perfil-campo-valor" id="perfil-activo">—</span>
+        </div>
+        <div class="perfil-campo">
+          <span class="perfil-campo-label">Roles</span>
+          <div id="perfil-roles" class="perfil-roles"></div>
+        </div>
+
+        <p style="margin-top:20px; font-size:13px; color:#9ca3af; border-top:1px solid #f3f4f6; padding-top:14px;">
+          <span class="material-symbols-outlined" style="font-size:15px; vertical-align:middle; margin-right:4px; color:#9ca3af;">info</span>
+          Para actualizar tu nombre u otros datos personales, contacta a un administrador.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/perfil.js"></script>
+</body>
+</html>

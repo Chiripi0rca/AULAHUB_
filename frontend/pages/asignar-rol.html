@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- Asignar rol/facultad a un usuario existente. Solo SUPER_ADMIN y ADMIN_CENTRAL.
+     Reutiliza registrar-usuario.js (que inicializa esta sección si existe #form-asignar). -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modificar Usuario - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <div class="page-header">
+      <h2>Modificar Usuario </h2>
+      <p class="page-sub">Asigna un rol y facultad a un usuario que ya existe en el sistema.</p>
+    </div>
+
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">manage_accounts</span>
+        Modificar usuario existente
+      </h3>
+      <p style="color:#6b7280; font-size:13px; margin:-6px 0 0;">
+        Busca al usuario, define el rol y la facultad, y guarda.
+      </p>
+
+      <!-- Pasos guiados -->
+      <div class="stepper">
+        <div class="step activo" data-step="1"><span class="step-num">1</span> Elige el usuario</div>
+        <span class="material-symbols-outlined step-flecha">chevron_right</span>
+        <div class="step" data-step="2"><span class="step-num">2</span> Define rol y facultad</div>
+        <span class="material-symbols-outlined step-flecha">chevron_right</span>
+        <div class="step" data-step="3"><span class="step-num">3</span> Asigna</div>
+      </div>
+
+      <form id="form-asignar" autocomplete="off" novalidate>
+
+        <!-- Paso 1 — Usuario: buscador custom con position:fixed -->
+        <div class="form-field">
+          <label for="asig-usuario-search">Usuario <span class="req">*</span></label>
+          <div class="busqueda-wrapper">
+            <input type="text" id="asig-usuario-search" class="busqueda-input"
+                   placeholder="Escribe nombre o correo..." autocomplete="off">
+            <input type="hidden" id="asig-usuario">
+          </div>
+          <span class="field-error" id="err-asig-usuario"></span>
+        </div>
+
+        <!-- Paso 2 y 3 — Panel de configuración: aparece al elegir un usuario -->
+        <div id="asig-panel" style="display:none; margin-top:18px; border-top:1px solid #f3f4f6; padding-top:18px;">
+
+          <div class="form-field" id="asig-roles-actuales" style="display:none">
+            <label>Roles actuales</label>
+            <div id="asig-roles-lista" class="roles-lista"></div>
+          </div>
+
+          <div class="form-row" style="margin-top:20px">
+            <div class="form-field">
+              <label for="asig-tipo">Rol <span class="req">*</span></label>
+              <select id="asig-tipo"></select>
+              <span class="field-error" id="err-asig-tipo"></span>
+            </div>
+            <div class="form-field" id="asig-campo-facultad" style="display:none">
+              <label for="asig-facultad">Facultad <span class="req" id="asig-facultad-req">*</span></label>
+              <select id="asig-facultad">
+                <option value="">— Selecciona una facultad —</option>
+              </select>
+              <span class="field-error" id="err-asig-facultad"></span>
+            </div>
+          </div>
+
+          <div class="form-field" id="asig-campo-turno" style="margin-top:20px; display:none">
+            <label for="asig-turno">Turno <span class="req">*</span></label>
+            <select id="asig-turno">
+              <option value="MATUTINO">Matutino</option>
+              <option value="VESPERTINO">Vespertino</option>
+              <option value="AMBOS">Ambos turnos</option>
+            </select>
+            <span class="field-error" id="err-asig-turno"></span>
+          </div>
+
+          <div class="form-field" id="asig-campo-aulas" style="margin-top:20px; display:none">
+            <label>Aulas que puede gestionar <span class="req">*</span></label>
+            <div id="asig-aulas-lista" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; min-height:36px;">
+              <span style="color:#9ca3af; font-size:13px;">Selecciona una facultad primero</span>
+            </div>
+            <span class="field-error" id="err-asig-aulas"></span>
+          </div>
+
+          <div class="form-field form-field-full" style="margin-top:28px">
+            <button type="button" id="btn-asignar" class="btn-action">
+              <span class="material-symbols-outlined">assignment_ind</span>
+              Asignar
+            </button>
+          </div>
+
+          <div id="asig-exito" class="form-exito" style="display:none">
+            <span class="material-symbols-outlined" style="vertical-align:middle;margin-right:6px">check_circle</span>
+            Facultad y rol asignados correctamente.
+          </div>
+          <div id="asig-error-global" class="form-error-global" style="display:none"></div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <footer></footer>
+  <script src="../config.js"></script>
+  <script type="module" src="../src/main.js"></script>
+  <script type="module" src="../src/pages/registrar-usuario.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Gestión de solicitudes: bandeja exclusiva para administradores para aceptar o rechazar reservas pendientes -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionar Solicitudes - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+    <header class="header"></header>
+    <div class="toasts"></div>
+
+    <div class="content">
+        <h2>Gestionar Solicitudes</h2>
+        
+        <div class="filter-bar">
+            <label for="statusFilter">Mostrar:</label>
+            <select id="statusFilter" class="select-status">
+                <option value="Pendiente">Pendientes</option>
+                <option value="Aceptada">Aceptadas</option>
+                <option value="Rechazada">Rechazadas</option>
+            </select>
+        </div>
+
+        <div id="loading" class="status-message">
+            Cargando solicitudes...
+        </div>
+        
+        <div id="empty-message" class="status-message empty-message">
+            <span class="material-symbols-outlined empty-icon">folder_open</span>
+            No hay solicitudes en este estado.
+        </div>
+
+        <div id="solicitudes-container" class="grid-container">
+            </div>
+    </div>
+
+    <!-- Modal: motivo de rechazo -->
+    <div id="modal-rechazo" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:1000; align-items:center; justify-content:center;">
+      <div style="background:#fff; border-radius:12px; padding:28px; max-width:440px; width:90%; box-shadow:0 8px 32px rgba(0,0,0,.18);">
+        <h3 style="margin:0 0 12px; font-size:16px; color:#111827;">Motivo del rechazo</h3>
+        <p style="margin:0 0 14px; font-size:13px; color:#6b7280;">Escribe brevemente por qué se rechaza la solicitud. El profesor recibirá esta explicación.</p>
+        <textarea id="input-motivo" rows="3" placeholder="Ej: El aula ya tiene mantenimiento programado ese día..."
+          style="width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; font-size:14px; resize:vertical; font-family:inherit;"></textarea>
+        <div style="display:flex; gap:10px; margin-top:16px; justify-content:flex-end;">
+          <button id="btn-cancelar-rechazo" style="padding:8px 18px; border:1px solid #d1d5db; border-radius:8px; background:#f9fafb; cursor:pointer; font-size:14px;">Cancelar</button>
+          <button id="btn-confirmar-rechazo" style="padding:8px 18px; border:none; border-radius:8px; background:#ef4444; color:#fff; cursor:pointer; font-size:14px; font-weight:600;">Rechazar</button>
+        </div>
+      </div>
+    </div>
+
+    <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/solicitudes.js"></script>
+</body>
+</html>

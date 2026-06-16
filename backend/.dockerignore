@@ -1,0 +1,17 @@
+
+.git/
+.idea/
+target/
+.mvn/
+mvnw
+mvnw.cmd
+*.iml
+*.md
+.env
+.env.*
+docker-compose.yml
+Dockerfile
+deploy/
+
+*firebase-adminsdk*.json
+google-services.json

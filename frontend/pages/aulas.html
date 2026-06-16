@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Menú principal: muestra las tarjetas de aulas disponibles para reservar -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Aula - FIC</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+    <header class="header"></header>
+    <div class="toasts"></div>
+    <div class="content">
+        <!-- Banner contextual por rol (admins) -->
+        <div id="banner-rol"></div>
+
+        <h2>Selecciona una facultad</h2>
+
+        <!-- Tarjetas de facultad -->
+        <p class="seccion-subtitulo">Facultad</p>
+        <div id="facultad-list" class="aula-list" style="margin-bottom:36px;"></div>
+
+        <h2>Selecciona el aula a reservar</h2>
+        <!-- Tarjetas de aulas (se cargan al seleccionar facultad) -->
+        <p class="seccion-subtitulo" id="subtitulo-aulas" style="display:none;">Aulas disponibles</p>
+        <div id="aula-list" class="aula-list"></div>
+    </div>
+    <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/aulas.js"></script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+/* Vista de calendario y formulario de reserva. */
+/* datestyles.css */
+
+/* Layout general: todos los bloques en una columna centrada de ancho uniforme */
+.reserva-content { align-items: center; }
+.reserva-content > * {
+    width: 100%;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.reserva-content .page-header { text-align: left; }
+.reserva-content .ImgFoto { display: flex; justify-content: center; }
+
+.form-container {
+    max-width: 640px;
+    margin: 0 auto 18px;
+    padding: 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.form-row:last-child {
+    margin-bottom: 0;
+}
+
+.input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 70px;
+}
+
+.input-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.input-moderno {
+    width: 100%;
+    height: 42px !important; 
+    min-height: 42px !important;
+    max-height: 42px !important;
+
+    padding: 10px 30px 10px 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background-color: #f9fafb;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px top 50%;
+    background-size: 10px auto;
+}
+
+.input-locked {
+    background-image: none !important;
+}
+
+.calendar-container {
+    max-width: 600px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+}
+
+#currentMonth {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #164B8A;
+    text-transform: capitalize;
+}
+
+#selectedDates {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin: 15px auto !important;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.calendar-day {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
+    font-size: 14px;
+    text-align: center;
+}
+
+.calendar-day:hover { background-color: #f3f4f6; }
+.calendar-day.selected { background-color: #164B8A; color: white; }
+.calendar-day.range { background-color: #e0f2fe; color: #164B8A; }
+.calendar-day.empty { cursor: default; background: none; }
+.calendar-day.past { color: #d1d5db; cursor: not-allowed; text-decoration: line-through; }
+.calendar-day.past:hover { background-color: transparent; }
+
+.week-container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.week-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.week-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.week-nav-btn:hover { background: #f3f4f6; }
+
+.week-title {
+    flex: 1;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.week-scroll {
+    margin-top: 8px;
+    overflow-x: auto;
+}
+
+.week-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+}
+
+.week-table th, .week-table td {
+    border: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.week-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #374151;
+}
+
+.time-slot-cell { cursor: pointer; }
+.time-slot-cell.past { background-color: #f3f4f6; color: #9ca3af; cursor: not-allowed; }
+.time-slot-cell.past:hover { background-color: #f3f4f6; }
+
+.time-slot-cell.selected {
+    background-color: #e0f2fe;
+    border: 1px solid #164B8A;
+    position: relative;
+}
+
+.time-slot-cell.selected::after {
+    content: '';
+    display: block;
+    width: 6px; height: 6px;
+    background: #164B8A;
+    border-radius: 50%;
+    margin: 2px auto 0;
+}
+
+.time-slot-cell.busy {
+    background-color: #fee2e2;
+    color: #dc2626;
+    cursor: not-allowed;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.modal-overlay.active .modal-content { transform: translateY(0); }
+
+.modal-details {
+    text-align: left;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+}
+.modal-details p { margin: 8px 0; font-size: 14px; color: #333; }
+
+.modal-actions { display: flex; gap: 10px; justify-content: center; }
+
+.btn-confirm {
+    background: #164B8A; color: white; border: none;
+    padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 600;
+}
+.btn-cancel {
+    background: transparent; color: #666; border: 1px solid #ddd;
+    padding: 10px 20px; border-radius: 8px; cursor: pointer;
+}
+
+.ImgFoto { width: 100%; margin-bottom: 18px; }
+.ImgFoto img {
+    display: block; width: 100%;
+    height: 200px;
+    object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.aceptar button {
+    display: flex; justify-content: center; margin: 24px auto 40px; padding: 12px 32px;
+    border-radius: 200px; border: none; font-size: 18px; font-weight: 700; cursor: pointer;
+    color: #ffffff; background: linear-gradient(135deg, #2563eb, #0ea5e9);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35); transition: transform 0.2s, box-shadow 0.2s;
+}
+.aceptar button:active { transform: translateY(1px) scale(0.98); }
+.aceptar button:disabled { cursor: not-allowed; opacity: 0.6; background: #9ca3af; }
+
+.time-slot-cell.pending-slot {
+    background-color: #ffedd5;
+    border: 1px dashed #f97316;
+    color: #c2410c;
+    position: relative;
+}
+
+
+.time-slot-cell.pending-slot:hover {
+    background-color: #fed7aa;
+    cursor: context-menu;
+}
+
+/* Celdas ocupadas: tarjeta flotante con badge de tipo e iconos.
+   Sobreescriben el white-space:nowrap global para que el texto baje de linea. */
+.time-slot-cell.busy,
+.time-slot-cell.pending-slot {
+    white-space: normal;
+    vertical-align: middle;
+    padding: 4px;
+    cursor: pointer;
+}
+/* Fondo de celda mas suave porque encima va una tarjeta blanca */
+.time-slot-cell.busy { background-color: #fef2f2; color: inherit; }
+.time-slot-cell.pending-slot { background-color: #fff7ed; border: 1px dashed #fdba74; color: inherit; }
+
+/* Tarjeta blanca flotante (diseno 5) */
+.celda-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 2px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 6px 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.14);
+    border-top: 3px solid #dc2626; /* color por tipo via style inline; fallback rojo */
+    width: 100%;
+    pointer-events: none; /* los clics atraviesan al td para abrir el modal */
+}
+.celda-card.celda-pendiente { border-top-color: #f97316; }
+
+/* Badge de tipo (diseno 2) */
+.celda-badge {
+    font-size: 8.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #ffffff;
+    background: #dc2626;
+    padding: 1px 7px;
+    border-radius: 999px;
+    margin-bottom: 1px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.celda-badge-pendiente { background: #f97316; }
+
+/* Filas con icono (diseno 4) */
+.celda-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1.2;
+    max-width: 100%;
+}
+.celda-row .material-symbols-outlined {
+    font-size: 13px;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+.celda-nombre  { font-weight: 700; font-size: 11px;   color: #1f2937; }
+.celda-materia { font-size: 10.5px; color: #374151; }
+.celda-meta    { font-size: 10px;   color: #6b7280; }
+
+.admin-modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 6000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+}
+
+.admin-modal-overlay.active { opacity: 1; visibility: visible; }
+
+.admin-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 350px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    text-align: center;
+    border-top: 5px solid #f97316; /* Borde naranja superior */
+}
+
+.admin-card h3 { color: #f97316; margin-top: 0; }
+.admin-info { text-align: left; background: #f9fafb; padding: 10px; border-radius: 8px; margin: 15px 0; font-size: 14px; }
+.admin-info p { margin: 5px 0; color: #4b5563; }
+
+.admin-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-admin { flex: 1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; color: white; transition: transform 0.1s; }
+.btn-admin:active { transform: scale(0.95); }
+
+/* ── Modal de gestion de solicitudes: ancho + grid de tarjetas compactas ──── */
+#adminActionModal .admin-card {
+    max-width: 880px;          /* mas ancho para varias columnas */
+    display: flex;
+    flex-direction: column;
+    max-height: 88vh;          /* no se sale de la pantalla */
+}
+#adminActionModal #admLista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+    overflow-y: auto;          /* scroll interno si hay muchas */
+    padding-right: 4px;
+    flex: 1;                   /* ocupa el espacio disponible del card */
+    min-height: 0;             /* necesario para que el scroll funcione en flex column */
+    align-content: start;
+}
+
+/* Tarjeta compacta de cada solicitud */
+.sol-mini {
+    text-align: left;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #fff;
+}
+.sol-mini-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.sol-mini-prof { font-weight: 700; color: #111827; font-size: 14px; }
+.sol-mini-tipo {
+    font-size: 11px; font-weight: 600;
+    background: #eff6ff; color: #1e40af;
+    padding: 2px 8px; border-radius: 999px; white-space: nowrap;
+}
+.sol-mini-datos { display: flex; flex-direction: column; gap: 3px; font-size: 12.5px; color: #6b7280; }
+.sol-mini-datos span { display: flex; align-items: center; gap: 6px; }
+.sol-mini-datos .material-symbols-outlined { font-size: 15px; color: #9ca3af; }
+.sol-mini .admin-actions { margin-top: 2px; }
+.sol-mini .btn-admin { padding: 7px; font-size: 13px; }
+
+.btn-approve { background-color: #16a34a; }
+.btn-reject { background-color: #dc2626; }
+.btn-close { background-color: #9ca3af; }

@@ -1,0 +1,33 @@
+<!-- Header: toggle sidebar (móvil) | brand | selector facultad | notificaciones | avatar -->
+<div class="header-left">
+  <button id="sidebar-toggle" class="header-btn" type="button" title="Menú">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+  <span class="brand-name">AulaHub</span>
+</div>
+
+<div class="header-right">
+  <!-- Notificaciones -->
+  <div class="notificacion" id="btnNotificacion" title="Notificaciones">
+    <span class="material-symbols-outlined">notifications</span>
+  </div>
+  <div class="notificaciones-menu" id="menuNotificaciones">
+    <div class="noti-header">Notificaciones</div>
+    <ul class="noti-list" id="listaNotificaciones">
+      <li class="noti-vacio">Cargando...</li>
+    </ul>
+  </div>
+
+  <!-- Avatar de usuario -->
+  <div class="usuario">
+    <a href="#"><img src="" id="preview" alt="avatar"></a>
+    <div class="subusuario">
+      <ul>
+        <li><div id="userinfo">Cargando...</div></li>
+        <input type="file" id="fileInput" accept="image/*" class="profile-file-input">
+        <li><button id="btnSubirFoto">Subir Foto</button></li>
+        <li><button id="btnBorrarFoto">Borrar Foto</button></li>
+      </ul>
+    </div>
+  </div>
+</div>

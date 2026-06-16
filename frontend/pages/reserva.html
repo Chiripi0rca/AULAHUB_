@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- Página de reserva: calendario semanal para seleccionar horarios y enviar solicitud de reserva -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Reservas</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/reserva.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+    <header class="header"></header>
+    <div class="toasts"></div>
+
+    <div class="content reserva-content">
+        <div class="page-header">
+            <h2>Reservar aula</h2>
+            <p class="page-sub">Elige el horario en el calendario y confirma tu reserva.</p>
+        </div>
+
+        <!-- Imagen del aula -->
+        <div class="ImgFoto">
+            <img id="aulaImg" src="../assets/images/aulas/default.jpg" alt="aula">
+        </div>
+
+        <!-- Datos de la reserva -->
+        <div class="form-container">
+            <div class="form-row">
+                <div class="input-group">
+                    <label>Aula Seleccionada</label>
+                    <input type="text" id="aulaDisplay" readonly class="input-moderno input-locked">
+                </div>
+                <div class="input-group">
+                    <label for="turno">Turno</label>
+                    <select name="turno" id="turno" class="input-moderno">
+                        <option value="Matutino">Matutino</option>
+                        <option value="Vespertino">Vespertino</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="grupo">Grupo</label>
+                    <select id="grupo" class="input-moderno">
+                        <option value="">Cargando grupos...</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="materia">Materia</label>
+                    <select id="materia" class="input-moderno">
+                        <option value="">Selecciona un grupo primero</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="tipoReserva">Tipo de reserva</label>
+                    <select id="tipoReserva" class="input-moderno">
+                        <option value="">Cargando tipos...</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <h3 id="selectedDates">Fechas seleccionadas:</h3>
+
+        <!-- Calendario semanal -->
+        <div class="calendar">
+            <div id="weekContainer" class="week-container">
+                <div class="week-header">
+                    <button id="prevWeekButton" class="week-nav-btn">&lt;</button>
+                    <span id="weekRangeText" class="week-title">Semana</span>
+                    <button id="nextWeekButton" class="week-nav-btn">&gt;</button>
+                </div>
+                <div id="weekScroll" class="week-scroll">
+                    <table id="weekTable" class="week-table">
+                        <!-- Se llena con JS -->
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="aceptar"><button type="button" id="btnPreReservar">Continuar</button></div>
+    </div>
+
+    <div id="modalConfirmacion" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Confirmar Reserva</h3>
+            <div class="modal-details">
+                <p><strong>Aula:</strong> <span id="confAula"></span></p>
+                <p id="confMateriaRow"><strong>Materia:</strong> <span id="confMateria"></span></p>
+                <p id="confGrupoRow"><strong>Grupo:</strong> <span id="confGrupo"></span></p>
+                <p><strong>Tipo:</strong> <span id="confTipo"></span></p>
+                <p><strong>Turno:</strong> <span id="confTurno"></span></p>
+                <p><strong>Fechas:</strong> <span id="confFechas"></span></p>
+                <p><strong>Horas:</strong> <span id="confHoras"></span></p>
+            </div>
+            <div class="modal-actions">
+                <button id="btnCancelar" class="btn-cancel">Cancelar</button>
+                <button id="btnEnviarReserva" class="btn-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/pages/reserva.js"></script>
+    <script type="module" src="../src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!-- Formulario de registro: crea cuentas nuevas. Solo visible para SUPER_ADMIN y ADMIN_CENTRAL. -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar usuario - AulaHub</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/pages.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+</head>
+<body>
+  <header class="header"></header>
+  <div class="toasts"></div>
+
+  <div class="content">
+    <div class="page-header">
+      <h2>Registrar usuario</h2>
+      <p class="page-sub">Crea una cuenta nueva en el sistema.</p>
+    </div>
+
+    <!-- ── Crear cuenta nueva ── -->
+    <div class="dashboard-section" style="max-width:760px; margin:0 auto 24px;">
+      <h3 class="dashboard-section-title">
+        <span class="material-symbols-outlined">person_add</span>
+        Crear cuenta nueva
+      </h3>
+
+      <form id="form-registrar" autocomplete="off" novalidate>
+
+        <!-- Nombre y Apellidos -->
+        <div class="form-row">
+          <div class="form-field">
+            <label for="reg-nombre">Nombre(s) <span class="req">*</span></label>
+            <input type="text" id="reg-nombre" placeholder="Ej. Juan Carlos" autocomplete="off">
+            <span class="field-error" id="err-nombre"></span>
+          </div>
+          <div class="form-field">
+            <label for="reg-apellidos">Apellidos <span class="req">*</span></label>
+            <input type="text" id="reg-apellidos" placeholder="Ej. Pérez López" autocomplete="off">
+            <span class="field-error" id="err-apellidos"></span>
+          </div>
+        </div>
+
+        <!-- Email y Contraseña -->
+        <div class="form-row" style="margin-top:20px">
+          <div class="form-field">
+            <label for="reg-email">Correo electrónico <span class="req">*</span></label>
+            <input type="email" id="reg-email" placeholder="correo@uas.edu.mx" autocomplete="off">
+            <span class="field-error" id="err-email"></span>
+          </div>
+          <div class="form-field">
+            <label for="reg-password">Contraseña <span class="req">*</span></label>
+            <input type="password" id="reg-password" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+            <span class="password-hint">Mayúscula, minúscula, número y carácter especial (@#$%^&+=!)</span>
+            <span class="field-error" id="err-password"></span>
+          </div>
+        </div>
+
+        <!-- Rol -->
+        <div class="form-field" style="margin-top:20px">
+          <label for="reg-tipo">Rol <span class="req">*</span></label>
+          <select id="reg-tipo">
+            <!-- Se puebla con JS según el rol del usuario logueado -->
+          </select>
+          <span class="field-error" id="err-tipo"></span>
+        </div>
+
+        <!-- Facultad (condicional) -->
+        <div class="form-field" id="campo-facultad" style="margin-top:20px; display:none">
+          <label for="reg-facultad">
+            Facultad <span class="req" id="facultad-req">*</span>
+          </label>
+          <select id="reg-facultad">
+            <option value="">Cargando facultades...</option>
+          </select>
+          <span class="field-error" id="err-facultad"></span>
+        </div>
+
+        <!-- Turno (condicional — solo para ADMIN) -->
+        <div class="form-field" id="campo-turno" style="margin-top:20px; display:none">
+          <label for="reg-turno">Turno <span class="req">*</span></label>
+          <select id="reg-turno">
+            <option value="MATUTINO">Matutino</option>
+            <option value="VESPERTINO">Vespertino</option>
+            <option value="AMBOS">Ambos turnos</option>
+          </select>
+          <span class="field-error" id="err-turno"></span>
+        </div>
+
+        <!-- Aulas asignadas (condicional — solo para ADMIN) -->
+        <div class="form-field" id="campo-aulas" style="margin-top:20px; display:none">
+          <label>Aulas que puede gestionar <span class="req">*</span></label>
+          <div id="reg-aulas-lista" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; min-height:36px;">
+            <span style="color:#9ca3af; font-size:13px;">Selecciona una facultad primero</span>
+          </div>
+          <span class="field-error" id="err-aulas"></span>
+        </div>
+
+        <!-- Acciones -->
+        <div class="form-field form-field-full" style="margin-top:28px">
+          <button type="button" id="btn-registrar" class="btn-action">
+            <span class="material-symbols-outlined">person_add</span>
+            Crear usuario
+          </button>
+        </div>
+
+        <!-- Feedback global -->
+        <div id="reg-exito" class="form-exito" style="display:none">
+          <span class="material-symbols-outlined" style="vertical-align:middle;margin-right:6px">check_circle</span>
+          Usuario creado correctamente.
+        </div>
+        <div id="reg-error-global" class="form-error-global" style="display:none"></div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <footer></footer>
+    <script src="../config.js"></script>
+    <script type="module" src="../src/main.js"></script>
+    <script type="module" src="../src/pages/registrar-usuario.js"></script>
+</body>
+</html>

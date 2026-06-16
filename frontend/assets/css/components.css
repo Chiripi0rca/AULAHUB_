@@ -1,0 +1,850 @@
+/* Componentes pequenos reutilizados por configuracion, reglamento, solicitudes y estados vacios. */
+
+/* ── Buscador de usuarios (dropdown custom con position:fixed) ── */
+.busqueda-wrapper { position: relative; }
+
+.busqueda-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+  background: #f9fafb;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background 0.2s;
+}
+.busqueda-input:focus { border-color: #164B8A; background: #fff; }
+.busqueda-input.input-error { border-color: #ef4444 !important; background: #fef2f2 !important; }
+
+.busqueda-lista {
+  position: absolute;     /* el JS lo mueve a <body> y controla display via style */
+  z-index: 99999;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  display: none;
+}
+
+.busqueda-lista li {
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #374151;
+  transition: background 0.1s;
+}
+.busqueda-lista li:hover  { background: #eff6ff; color: #1d4ed8; }
+.busqueda-lista .sin-res  { color: #9ca3af; cursor: default; font-style: italic; }
+
+.aula-card-hidden {
+  visibility: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   SISTEMA DE COMPONENTES UNIFICADO
+   Clases compartidas por todas las paginas de gestion para que se vean y
+   funcionen igual: cabecera de pagina, botones, filas de lista y estados vacios.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Cabecera de pagina: titulo + descripcion corta */
+.page-header {
+  margin-bottom: 24px;
+}
+.page-header h2 {
+  text-align: left;
+  margin: 0 0 4px;
+}
+.page-header .page-sub {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Botones de accion en filas de listas — SIEMPRE con texto + icono (nada de iconos sueltos) */
+.btn-fila {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+  white-space: nowrap;
+}
+.btn-fila .material-symbols-outlined { font-size: 16px; color: inherit; }
+.btn-fila--edit    { background: #eff6ff; color: #1e40af; border-color: #bfdbfe; }
+.btn-fila--edit:hover { background: #dbeafe; }
+.btn-fila--danger  { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.btn-fila--danger:hover { background: #fee2e2; }
+.btn-fila--success { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.btn-fila--success:hover { background: #dcfce7; }
+.btn-fila--neutral { background: #f9fafb; color: #374151; border-color: #e5e7eb; }
+.btn-fila--neutral:hover { background: #f3f4f6; }
+
+/* Estado vacio con guia: icono grande + mensaje + accion sugerida */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+.empty-state .empty-state-icon {
+  font-size: 48px;
+  color: #d1d5db;
+  display: block;
+  margin: 0 auto 12px;
+}
+.empty-state h4 { margin: 0 0 6px; font-size: 15px; color: #374151; }
+.empty-state p  { margin: 0 0 16px; font-size: 13px; }
+
+/* Panel de inicio por rol: saludo + tarjetas grandes de accesos directos */
+.inicio-hero {
+  margin-bottom: 18px;
+}
+.inicio-hero h3 {
+  margin: 0 0 4px;
+  font-size: 22px;
+  color: #111827;
+}
+.inicio-hero p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.inicio-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.inicio-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #111827;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.inicio-card:hover {
+  border-color: #164B8A;
+  box-shadow: 0 6px 16px rgba(22,75,138,.12);
+  transform: translateY(-3px);
+}
+.inicio-card-icon {
+  font-size: 30px !important;
+  color: #164B8A !important;
+  margin-bottom: 6px;
+}
+.inicio-card strong { font-size: 15px; }
+.inicio-card-desc { font-size: 12px; color: #6b7280; line-height: 1.4; }
+
+/* Pasos guiados (stepper) — para flujos de varios pasos */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 14px 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #9ca3af;
+}
+.step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #6b7280;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.step.activo { color: #164B8A; font-weight: 600; }
+.step.activo .step-num { background: #164B8A; color: #fff; }
+.step-flecha { color: #d1d5db; font-size: 18px; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   TABS (catálogos, personas, etc.)
+   ══════════════════════════════════════════════════════════════════════════ */
+.tabs-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 8px 8px 0 0;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.tab-btn:hover { color: #164B8A; background: #eff6ff; }
+.tab-btn.tab-activo { color: #164B8A; border-bottom-color: #164B8A; font-weight: 600; }
+.tab-btn .material-symbols-outlined { font-size: 18px; color: inherit; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   BANNER DE ROL (aulas.html)
+   ══════════════════════════════════════════════════════════════════════════ */
+.banner-rol {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.banner-rol .material-symbols-outlined { font-size: 32px; flex-shrink: 0; }
+.banner-rol > div { flex: 1; min-width: 160px; }
+.banner-rol > div strong { display: block; font-size: 15px; margin-bottom: 2px; }
+.banner-rol > div p { margin: 0; font-size: 13px; opacity: .8; }
+
+.banner-central  { background: #eff6ff; color: #1e3a8a; }
+.banner-central .material-symbols-outlined { color: #1e3a8a; }
+.banner-superadmin { background: #f0fdf4; color: #14532d; }
+.banner-superadmin .material-symbols-outlined { color: #16a34a; }
+.banner-admin { background: #fffbeb; color: #78350f; }
+.banner-admin .material-symbols-outlined { color: #d97706; }
+
+.banner-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.banner-btn {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1.5px solid currentColor;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s;
+}
+.banner-btn:hover { background: rgba(0,0,0,.07); }
+.banner-btn-primary {
+  background: #164B8A !important;
+  color: #fff !important;
+  border-color: #164B8A !important;
+}
+.banner-btn-primary:hover { background: #1e40af !important; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ACCIONES RÁPIDAS (dashboard)
+   ══════════════════════════════════════════════════════════════════════════ */
+.accion-rapida-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.accion-rapida-btn:hover { border-color: #164B8A; color: #164B8A; box-shadow: 0 2px 8px rgba(22,75,138,.12); }
+.accion-rapida-btn .material-symbols-outlined { font-size: 18px; color: inherit; }
+.accion-rapida-btn.accion-primary {
+  background: #164B8A; color: #fff; border-color: #164B8A;
+}
+.accion-rapida-btn.accion-primary:hover { background: #1e40af; border-color: #1e40af; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CARDS DE PERSONAS (personas.html)
+   ══════════════════════════════════════════════════════════════════════════ */
+.persona-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #111827;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.persona-card:hover {
+  border-color: #164B8A;
+  box-shadow: 0 4px 12px rgba(22,75,138,.12);
+  transform: translateY(-2px);
+}
+.persona-card-icono {
+  font-size: 28px !important;
+  color: #164B8A !important;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.persona-card strong { display: block; font-size: 14px; margin-bottom: 3px; }
+.persona-card p { margin: 0; font-size: 12px; color: #6b7280; line-height: 1.4; }
+
+.config-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.config-section-title {
+  margin-bottom: 15px;
+  color: #666;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.config-card {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.config-item-main {
+  display: flex;
+  align-items: center;
+}
+
+.config-icon {
+  color: #164B8A;
+  font-size: 28px;
+  padding: 10px;
+  background-color: #f0f9ff;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.config-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.config-copy {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.config-card .btn-action {
+  padding: 8px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  color: #164B8A !important;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.config-card .btn-action:hover {
+  background: #f0f9ff;
+  border-color: #164B8A;
+}
+
+/* Card de contraseña con formulario (columna en vez de fila) */
+.config-card-vertical {
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+  max-width: 420px;
+}
+
+.config-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.config-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.config-field input {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s, background .2s;
+}
+.config-field input:focus { border-color: #164B8A; background: #fff; }
+
+.config-card-vertical .field-error {
+  color: #ef4444;
+  font-size: 13px;
+  min-height: 18px;
+}
+
+/* El botón de guardar dentro del form ocupa su propio ancho, no full */
+.config-form .btn-action {
+  align-self: flex-start;
+  background: #164B8A !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 10px 20px !important;
+}
+.config-form .btn-action:hover { background: #1e40af !important; }
+.config-form .btn-action:disabled { opacity: .6; cursor: not-allowed; }
+
+.seccion-titulo {
+  color: #004A99;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.divider-cafe {
+  width: 40px;
+  height: 3px;
+  background-color: #8D6E63;
+  margin-bottom: 12px;
+}
+
+.texto-cuerpo {
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.horario-item {
+  margin-bottom: 12px;
+}
+
+.reglamento-lista {
+  color: #444444;
+  font-size: 14px;
+  line-height: 1.6;
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.reglamento-lista li {
+  margin-bottom: 8px;
+}
+
+.divider-gris {
+  width: 100%;
+  height: 1px;
+  background-color: #EEEEEE;
+  margin: 16px 0;
+}
+
+.reglamento-body {
+  padding-top: 15px;
+}
+
+.divider-gris-spaced {
+  margin-bottom: 20px;
+}
+
+.nota-importante {
+  color: #D32F2F;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.nota-detalle {
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filter-bar label {
+  font-weight: 600;
+  color: #555;
+}
+
+.select-status {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.filter-group-maestro,
+.date-input,
+.resultados-info,
+.empty-message,
+.week-container {
+  display: none;
+}
+
+.status-message {
+  text-align: center;
+  color: #666;
+  margin-top: 20px;
+}
+
+.empty-message {
+  color: #9ca3af;
+}
+
+.empty-icon {
+  font-size: 48px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.profile-file-input {
+  display: none;
+}
+
+.menu-admin-link {
+  color: #164B8A;
+  font-weight: bold;
+}
+
+/* ── Validación de formularios ── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field-error {
+  display: block;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+  min-height: 16px;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.input-error:focus {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 2px rgba(239,68,68,0.15);
+}
+
+.password-hint {
+  display: block;
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.form-error-global {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #991b1b;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.form-exito {
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #166534;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 12px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+/* ── Role badge ── */
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+/* ── Cancelar reserva ── */
+.reserva-actions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.btn-cancelar {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #fee2e2;
+  border-radius: 6px;
+  background: #fef2f2;
+  color: #991b1b;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-cancelar:hover { background: #fee2e2; }
+.btn-cancelar:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.admin-modal-icon {
+  font-size: 40px;
+  color: #f97316;
+  margin-bottom: 10px;
+}
+
+/* ── Acordeón de facultades (gestionar-roles) ── */
+.facultad-acordeon {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.facultad-acordeon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.facultad-acordeon-header:hover { background: #f9fafb; }
+
+.facultad-acordeon-titulo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.facultad-acordeon-clave {
+  font-size: 12px;
+  font-weight: 600;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+.facultad-acordeon-chevron {
+  font-size: 20px;
+  color: #6b7280;
+  transition: transform 0.2s;
+}
+
+.facultad-acordeon-chevron.abierto { transform: rotate(180deg); }
+
+.facultad-acordeon-body {
+  display: none;
+  padding: 12px 18px 16px;
+  border-top: 1px solid #f3f4f6;
+  background: #fafafa;
+}
+
+.facultad-acordeon-body.abierto { display: block; }
+
+/* Usuario dentro de la facultad */
+.usuario-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.usuario-card-header {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.usuario-card-nombre {
+  font-weight: 600;
+  font-size: 14px;
+  color: #111827;
+}
+
+.usuario-card-email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ── Mini-cards de roles actuales ── */
+.roles-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.rol-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fafafa;
+}
+
+.rol-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rol-card-icono {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.rol-card-info {
+  flex: 1;
+}
+
+.rol-card-info strong {
+  display: block;
+  font-size: 14px;
+  color: #111827;
+}
+
+.rol-card-info span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.rol-card-aulas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.aula-tag {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ── Botones de acción pequeños (editar / activar / desactivar) ── */
+.btn-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: #f3f4f6;
+  color: #374151;
+}
+.btn-icono:hover { background: #e5e7eb; }
+.btn-icono-editar  { background: #eff6ff; color: #1d4ed8; }
+.btn-icono-editar:hover  { background: #dbeafe; }
+.btn-icono-danger  { background: #fef2f2; color: #dc2626; }
+.btn-icono-danger:hover  { background: #fee2e2; }
+.btn-icono-exito   { background: #dcfce7; color: #16a34a; }
+.btn-icono-exito:hover   { background: #bbf7d0; }
+
+/* ── Fila de tabla de gestión ── */
+.gestion-fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.gestion-fila:last-child { border-bottom: none; }
+.gestion-fila-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; }
+.gestion-fila-acciones { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+
+/* ── Badge de estado ── */
+.badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.badge-activo   { background: #dcfce7; color: #166534; }
+.badge-inactivo { background: #f3f4f6; color: #6b7280; }
