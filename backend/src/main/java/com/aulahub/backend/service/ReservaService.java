@@ -70,18 +70,31 @@ public class ReservaService {
         if (facultadId != null) {
             return reservaRepository.findByFacultadId(facultadId, pageable).map(this::toDTO);
         }
+        // Un PROFESOR (no admin) solo ve SUS propias reservas, nunca las de todo el sistema.
+        UserEntity actual = usuarioActual();
+        if (!rolJerarquia.esAdminOSuperior(rolJerarquia.rangoMaximoUsuario(actual.getId()))) {
+            return reservaRepository.findBySolicitante_Id(actual.getId(), pageable).map(this::toDTO);
+        }
         return reservaRepository.findAll(pageable).map(this::toDTO);
     }
 
-    // Devuelve todas las reservas de un usuario específico paginadas
+    // Devuelve todas las reservas de un usuario específico paginadas.
+    // Solo puedes pedir las de OTRO usuario si eres admin o superior.
     @Transactional(readOnly = true)
     public Page<ReservaResponseDTO> listarPorUsuario(Long usuarioId, Pageable pageable) {
+        UserEntity actual = usuarioActual();
+        boolean esAdmin = rolJerarquia.esAdminOSuperior(rolJerarquia.rangoMaximoUsuario(actual.getId()));
+        if (!usuarioId.equals(actual.getId()) && !esAdmin) {
+            throw new OperacionNoPermitidaException("Solo puedes ver tus propias reservas");
+        }
         return reservaRepository.findBySolicitante_Id(usuarioId, pageable).map(this::toDTO);
     }
 
-    // Devuelve todas las reservas de un aula específica paginadas
+    // Devuelve todas las reservas de un aula específica paginadas.
+    // Solo admins con alcance sobre esa aula (los profesores usan el calendario).
     @Transactional(readOnly = true)
     public Page<ReservaResponseDTO> listarPorAula(Long aulaId, Pageable pageable) {
+        validarPuedeVerAula(aulaId);
         return reservaRepository.findByAula_Id(aulaId, pageable).map(this::toDTO);
     }
 
@@ -100,11 +113,14 @@ public class ReservaService {
                 .toList();
     }
 
-    // Busca y devuelve una reserva por su ID
-    // Lanza ReservaNoEncontradaException si no existe
+    // Busca y devuelve una reserva por su ID.
+    // Lanza ReservaNoEncontradaException si no existe.
+    // Solo la puede ver el dueño o un admin con alcance sobre ella.
     @Transactional(readOnly = true)
     public ReservaResponseDTO obtenerPorId(Long id) {
-        return toDTO(buscarOLanzar(id));
+        ReservaEntity reserva = buscarOLanzar(id);
+        validarPuedeVerReserva(reserva);
+        return toDTO(reserva);
     }
 
     // Crea una reserva nueva en estado PENDIENTE
@@ -390,23 +406,29 @@ public class ReservaService {
     //  - ADMIN: solo reservas de las aulas que tiene asignadas (y, si tiene turno
     //    específico, del mismo turno de la reserva)
     private void validarPuedeGestionarReserva(ReservaEntity reserva) {
-        UserEntity actual = usuarioActual();
-        List<RolEntity> roles = rolRepository.findByUsuarioId(actual.getId());
+        List<RolEntity> roles = rolRepository.findByUsuarioId(usuarioActual().getId());
+        if (!puedeGestionarReserva(reserva, roles)) {
+            throw new OperacionNoPermitidaException(
+                    "No tienes permiso para gestionar reservas de esta aula");
+        }
+    }
 
-        // ADMIN_CENTRAL: sin restricción
-        if (roles.stream().anyMatch(r -> r.getTipo() == TipoRol.ADMIN_CENTRAL)) return;
+    // ¿Los roles del usuario le permiten gestionar/ver la reserva?
+    //  - ADMIN_CENTRAL: cualquier reserva
+    //  - SUPER_ADMIN: reservas de su facultad
+    //  - ADMIN: solo reservas de sus aulas asignadas (y, si tiene turno definido,
+    //    del mismo turno de la reserva)
+    private boolean puedeGestionarReserva(ReservaEntity reserva, List<RolEntity> roles) {
+        if (roles.stream().anyMatch(r -> r.getTipo() == TipoRol.ADMIN_CENTRAL)) return true;
 
         Long facultadReserva = reserva.getAula().getFacultad().getId();
 
-        // SUPER_ADMIN: cualquier aula de su facultad
         boolean esSuperDeLaFacultad = roles.stream()
                 .filter(r -> r.getTipo() == TipoRol.SUPER_ADMIN && r.getFacultad() != null)
                 .anyMatch(r -> r.getFacultad().getId().equals(facultadReserva));
-        if (esSuperDeLaFacultad) return;
+        if (esSuperDeLaFacultad) return true;
 
-        // ADMIN: el aula de la reserva debe estar entre sus aulas asignadas
-        // y, si su rol tiene turno definido (no AMBOS), debe coincidir con el de la reserva.
-        boolean esAdminDelAula = roles.stream()
+        return roles.stream()
                 .filter(r -> r.getTipo() == TipoRol.ADMIN)
                 .anyMatch(r -> {
                     boolean tieneElAula = r.getAulas().stream()
@@ -416,10 +438,39 @@ public class ReservaService {
                             || r.getTurno() == reserva.getTurno();
                     return tieneElAula && turnoOk;
                 });
-        if (esAdminDelAula) return;
+    }
+
+    // Lectura de UNA reserva: el dueño siempre puede; los demás solo si pueden gestionarla.
+    private void validarPuedeVerReserva(ReservaEntity reserva) {
+        UserEntity actual = usuarioActual();
+        if (reserva.getSolicitante().getId().equals(actual.getId())) return;
+        List<RolEntity> roles = rolRepository.findByUsuarioId(actual.getId());
+        if (!puedeGestionarReserva(reserva, roles)) {
+            throw new OperacionNoPermitidaException("No tienes permiso para ver esta reserva");
+        }
+    }
+
+    // Lectura del listado de reservas de un AULA: solo admins con alcance sobre esa aula.
+    private void validarPuedeVerAula(Long aulaId) {
+        List<RolEntity> roles = rolRepository.findByUsuarioId(usuarioActual().getId());
+        if (roles.stream().anyMatch(r -> r.getTipo() == TipoRol.ADMIN_CENTRAL)) return;
+
+        AulaEntity aula = aulaRepository.findById(aulaId)
+                .orElseThrow(() -> new AulaNoEncontradaException("Aula con id " + aulaId + " no encontrada"));
+        Long facultadAula = aula.getFacultad().getId();
+
+        boolean superDeLaFacultad = roles.stream()
+                .filter(r -> r.getTipo() == TipoRol.SUPER_ADMIN && r.getFacultad() != null)
+                .anyMatch(r -> r.getFacultad().getId().equals(facultadAula));
+        if (superDeLaFacultad) return;
+
+        boolean adminDelAula = roles.stream()
+                .filter(r -> r.getTipo() == TipoRol.ADMIN)
+                .anyMatch(r -> r.getAulas().stream().anyMatch(a -> a.getId().equals(aulaId)));
+        if (adminDelAula) return;
 
         throw new OperacionNoPermitidaException(
-                "No tienes permiso para gestionar reservas de esta aula");
+                "No tienes permiso para ver las reservas de esta aula");
     }
 
     // Construye el detalle (etiqueta -> valor) de una reserva para la tabla del email.

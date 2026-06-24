@@ -1,5 +1,7 @@
 # Secretos y datos locales — NUNCA se commitean
 .env
+application-local.properties
+*-local.properties
 firebase-key.json
 *firebase-adminsdk*.json
 google-services.json
